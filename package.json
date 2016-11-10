@@ -2,7 +2,7 @@
   "name": "test",
   "version": "1.0.0",
   "description": "I just runned npm init on this and have no idea what i am doing now",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "test": "test"
   },
