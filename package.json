@@ -1,0 +1,23 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "I just runned npm init on this and have no idea what i am doing now",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "BotFramework_KO"
+  },
+  "keywords": [
+    "Bot",
+    "Framework"
+  ],
+  "author": "Koikonomou",
+  "license": "MIT",
+  "dependencies": {
+    "botbuilder": "^3.4.4",
+    "restify": "^4.2.0"
+  }
+}
