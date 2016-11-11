@@ -23,30 +23,41 @@ server.post('/api/messages', connector.listen());
 // Bots Dialogs
 //=========================================================
 
-var intents = new builder.IntentDialog();
-bot.dialog('/', intents);
+// Create LUIS recognizer that points at our model and add it as the root '/' dialog for our Cortana Bot.
+var model = 'https://api.projectoxford.ai/luis/v2.0/apps/20e246c6-85f7-4a9b-a70e-86c25ecf2179?subscription-key=b1e5db1364244e289b73c05c659a3b37&q=';
+var recognizer = new builder.LuisRecognizer(model);
+var dialog = new builder.IntentDialog({ recognizers: [recognizer] });
+bot.dialog('/', dialog);
 
-intents.matches(/^change name/i, [
-    function (session) {
-        session.beginDialog('/profile');
-    },
-    function (session, results) {
-        session.send('Ok... Changed your name to %s', session.userData.name);
-    }
-]);
+dialog.matches("intent.search", builder.DialogAction.send('finding your data..'));
+dialog.matches("intent.call", builder.DialogAction.send('calling you mother..'));
+dialog.onDefault(builder.DialogAction.send('Well i can not do that my man. I can only call people or find info for you.'));
 
-intents.onDefault([
-    function (session, args, next) {
-        if (!session.userData.name) {
-            session.beginDialog('/profile');
-        } else {
-            next();
-        }
-    },
-    function (session, results) {
-        session.send('Hello %s!', session.userData.name);
-    }
-]);
+//Old intents dialogs
+//var intents = new builder.IntentDialog();
+//bot.dialog('/', intents);
+
+//intents.matches(/^change name/i, [
+//    function (session) {
+//        session.beginDialog('/profile');
+//    },
+//    function (session, results) {
+//        session.send('Ok... Changed your name to %s', session.userData.name);
+//    }
+//]);
+
+//intents.onDefault([
+//    function (session, args, next) {
+//        if (!session.userData.name) {
+//            session.beginDialog('/profile');
+//        } else {
+//            next();
+//        }
+//    },
+//    function (session, results) {
+//        session.send('Hello %s!', session.userData.name);
+//    }
+//]);
 
 bot.dialog('/profile', [
     function (session) {
@@ -55,5 +66,12 @@ bot.dialog('/profile', [
     function (session, results) {
         session.userData.name = results.response;
         session.endDialog();
+    }
+]);
+
+
+bot.dialog('/find', [
+    function (session) {
+        builder.Prompts.text(session, 'Hi! What do you want to find?');
     }
 ]);
