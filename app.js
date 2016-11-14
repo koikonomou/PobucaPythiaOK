@@ -31,14 +31,12 @@ server.get(/.*/, restify.serveStatic({
 //=========================================================
 
 // Create LUIS recognizer that points at our model and add it as the root '/' dialog for our Cortana Bot.
-var model = 'https://api.projectoxford.ai/luis/v2.0/apps/20e246c6-85f7-4a9b-a70e-86c25ecf2179?subscription-key=b1e5db1364244e289b73c05c659a3b37&q=';
+var model = 'https://api.projectoxford.ai/luis/v2.0/apps/20e246c6-85f7-4a9b-a70e-86c25ecf2179?subscription-key=b1e5db1364244e289b73c05c659a3b37';
 var recognizer = new builder.LuisRecognizer(model);
 var dialog = new builder.IntentDialog({ recognizers: [recognizer] });
 bot.dialog('/', dialog);
 
-dialog.matches("intent.search", builder.DialogAction.send('finding your data..'));
-dialog.matches("intent.call", builder.DialogAction.send('calling you mother..'));
-dialog.onDefault(builder.DialogAction.send('Well i can not do that my man. I can only call people or find info for you.'));
+dialog.onDefault(builder.DialogAction.send('Well i can not do that. I can only call people or find info for you.'));
 
 //Old intents dialogs
 //var intents = new builder.IntentDialog();
