@@ -36,6 +36,8 @@ var recognizer = new builder.LuisRecognizer(model);
 var dialog = new builder.IntentDialog({ recognizers: [recognizer] });
 bot.dialog('/', dialog);
 
+dialog.matches("Search", builder.DialogAction.send('finding your data..'));
+dialog.matches("call", builder.DialogAction.send('calling you mother..'));
 dialog.onDefault(builder.DialogAction.send('Well i can not do that. I can only call people or find info for you.'));
 
 //Old intents dialogs

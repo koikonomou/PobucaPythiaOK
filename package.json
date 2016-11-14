@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "I just runned npm init on this and have no idea what i am doing now",
   "main": "app.js",
-  "scripts": {
-    "test": "test"
-  },
   "repository": {
     "type": "git",
     "url": "BotFramework_KO"
